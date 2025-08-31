@@ -32,7 +32,7 @@ class Works extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SecType(text: 'Projects.', number: '02', color: Colors.white),
+            SecType(text: 'My Projects.', number: '02', color: Colors.white),
             GridView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),

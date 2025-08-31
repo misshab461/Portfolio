@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:portfolio/presentation/about.dart';
-import 'package:portfolio/presentation/contact.dart';
-import 'package:portfolio/presentation/top_section.dart';
-import 'package:portfolio/presentation/works.dart';
+import 'package:portfolio/presentation/web/about.dart';
+import 'package:portfolio/presentation/web/contact.dart';
+import 'package:portfolio/presentation/web/top_section.dart';
+import 'package:portfolio/presentation/web/works.dart';
 import 'package:portfolio/widgets/nav_bar.dart';
 
 /// 🔹 Section keys
@@ -27,8 +27,8 @@ void scrollToSection(GlobalKey key) {
 /// ----------------------
 /// MainScreen (Stateless)
 /// ----------------------
-class MainScreen extends StatelessWidget {
-  MainScreen({super.key});
+class MainScreenWeb extends StatelessWidget {
+  MainScreenWeb({super.key});
 
   final ScrollController _scrollController = ScrollController();
   final ValueNotifier<int> selectedIndex = ValueNotifier(0);
@@ -37,7 +37,6 @@ class MainScreen extends StatelessWidget {
   /// 🔹 Decide which section is visible & update navbar
   void _updateSelectedSection() {
     final scrollPos = _scrollController.offset;
-
     double aboutPos = _getOffsetFromKey(aboutKey);
     double worksPos = _getOffsetFromKey(worksKey);
     double contactPos = _getOffsetFromKey(contactKey);

@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio/application/bloc/firebase_bloc.dart';
-import 'package:portfolio/main_screen.dart';
+import 'package:portfolio/presentation/mobile/main_screen.dart';
+import 'package:portfolio/presentation/web/main_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:portfolio/service/firebase.dart';
 import 'firebase_options.dart';
@@ -10,13 +11,16 @@ import 'firebase_options.dart';
 void main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  // Preload fonts
   await GoogleFonts.pendingFonts([
     GoogleFonts.robotoSlab(),
     GoogleFonts.playfair(),
     GoogleFonts.dmSerifDisplay(),
     GoogleFonts.alumniSans(),
   ]);
-  runApp(MyPortfolioWeb());
+
+  runApp(const MyPortfolioWeb());
 }
 
 class MyPortfolioWeb extends StatelessWidget {
@@ -36,7 +40,6 @@ class MyPortfolioWeb extends StatelessWidget {
             labelStyle: TextStyle(
               fontFamily: GoogleFonts.robotoSlab().fontFamily,
             ),
-
             brightness: Brightness.dark,
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
           ),
@@ -47,8 +50,20 @@ class MyPortfolioWeb extends StatelessWidget {
             ),
           ),
         ),
-        home: MainScreen(),
         debugShowCheckedModeBanner: false,
+
+        /// 🔹 Responsive handling
+        home: LayoutBuilder(
+          builder: (context, constraints) {
+            if (constraints.maxWidth < 600) {
+              // Mobile Layout
+              return MainScreenMobile();
+            } else {
+              // Web / Desktop Layout
+              return MainScreenWeb();
+            }
+          },
+        ),
       ),
     );
   }

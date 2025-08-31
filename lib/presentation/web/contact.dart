@@ -5,7 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio/application/bloc/firebase_bloc.dart';
 import 'package:portfolio/models/user.dart';
-import 'package:portfolio/presentation/top_section.dart';
+import 'package:portfolio/presentation/web/top_section.dart';
 import 'package:portfolio/widgets/slade.dart';
 import 'package:portfolio/widgets/text.dart';
 
@@ -23,6 +23,7 @@ class Contact extends StatelessWidget {
     'asset/linkedin.png',
     'asset/facebook.png',
     'asset/instagram.png',
+    'asset/whatsapp.png',
   ];
   final _key = GlobalKey<FormState>();
 
@@ -31,6 +32,7 @@ class Contact extends StatelessWidget {
     'https://www.linkedin.com/in/misshabk/',
     'https://facebook.com/michuuzz.michu',
     'https://instagram.com/misshub_?igsh=MXdteTBzM3M5eTJubQ==',
+    'https://wa.me/919526013415?text=Hello%20Misshab%20👋🏻!',
   ];
   @override
   Widget build(BuildContext context) {
@@ -100,18 +102,15 @@ class Contact extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: List.generate(icons.length, (index) {
-                            return Padding(
-                              padding: const EdgeInsets.only(left: 30),
-                              child: AnimatedSocialIcon(
-                                icon: icons[index],
-                                onTap: () async {
-                                  if (!await launchUrl(Uri.parse(url[index]))) {
-                                    throw Exception(
-                                      'Could not launch ${url[index]}',
-                                    );
-                                  }
-                                },
-                              ),
+                            return AnimatedSocialIcon(
+                              icon: icons[index],
+                              onTap: () async {
+                                if (!await launchUrl(Uri.parse(url[index]))) {
+                                  throw Exception(
+                                    'Could not launch ${url[index]}',
+                                  );
+                                }
+                              },
                             );
                           }),
                         ),

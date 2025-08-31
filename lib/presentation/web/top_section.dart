@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:portfolio/main_screen.dart';
+import 'package:portfolio/presentation/web/main_screen.dart';
 import 'package:portfolio/widgets/slade.dart';
 import 'package:portfolio/widgets/text.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -11,12 +11,14 @@ final icons = [
   'asset/linkedin.png',
   'asset/facebook.png',
   'asset/instagram.png',
+  'asset/whatsapp.png',
 ];
 final url = [
   'https://github.com/misshab461?tab=repositories',
   'https://www.linkedin.com/in/misshabk/',
   'https://facebook.com/michuuzz.michu',
   'https://instagram.com/misshub_?igsh=MXdteTBzM3M5eTJubQ==',
+  'https://wa.me/919526013415?text=Hello%20Misshab%20👋🏻!',
 ];
 
 /// Reusable social icon with animation
@@ -41,7 +43,17 @@ class AnimatedSocialIcon extends StatelessWidget {
         cursor: SystemMouseCursors.click,
         child: GestureDetector(
           onTap: onTap,
-          child: Image.asset(icon, width: 26, height: 26),
+          child: Container(
+            height: 35,
+            width: 35,
+
+            margin: const EdgeInsets.only(bottom: 10, right: 20),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10),
+              image: DecorationImage(image: AssetImage(icon)),
+            ),
+          ),
         ),
       ),
     );
@@ -95,7 +107,7 @@ class TopSection extends StatelessWidget {
                       moveUp: true,
                       child: CsText(
                         text:
-                            "I'm Misshab\nA Flutter Developer\nBased Somewhere.",
+                            "I'm Misshab\na Flutter Developer\nBased Somewhere.",
                         fontSize: 60,
                         fontWeight: FontWeight.w400,
                         fontFamily: GoogleFonts.playfairDisplay().fontFamily,
@@ -159,45 +171,29 @@ class TopSection extends StatelessWidget {
                   ),
 
                   // Social bar
-                  Positioned(
-                    right: 30,
-                    top: 0,
-                    bottom: 0,
+                  Align(
+                    alignment: Alignment.centerRight,
                     child: EntryAnimation(
                       delay: 600,
                       moveUp: true,
-                      child: Container(
-                        margin: const EdgeInsets.symmetric(vertical: 250),
-                        width: 60,
-                        decoration: BoxDecoration(
-                          color: Colors.grey,
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: List.generate(icons.length, (index) {
-                            return Padding(
-                              padding: const EdgeInsets.symmetric(
-                                vertical: 16,
-                                horizontal: 10,
-                              ),
-                              child: AnimatedSocialIcon(
-                                icon: icons[index],
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: List.generate(icons.length, (index) {
+                          return AnimatedSocialIcon(
+                            icon: icons[index],
 
-                                onTap: () async {
-                                  if (!await launchUrl(
-                                    Uri.parse(url[index]),
-                                    mode: LaunchMode.externalApplication,
-                                  )) {
-                                    throw Exception(
-                                      'Could not launch ${url[index]}',
-                                    );
-                                  }
-                                },
-                              ),
-                            );
-                          }),
-                        ),
+                            onTap: () async {
+                              if (!await launchUrl(
+                                Uri.parse(url[index]),
+                                mode: LaunchMode.externalApplication,
+                              )) {
+                                throw Exception(
+                                  'Could not launch ${url[index]}',
+                                );
+                              }
+                            },
+                          );
+                        }),
                       ),
                     ),
                   ),

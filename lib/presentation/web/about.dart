@@ -8,7 +8,6 @@ class About extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 1050,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 10),
         child: Column(
