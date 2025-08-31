@@ -3,9 +3,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio/main_screen.dart';
 import 'package:portfolio/widgets/slade.dart';
 import 'package:portfolio/widgets/text.dart';
-
 import 'package:url_launcher/url_launcher.dart';
 
+// Social media icons & URLs
 final icons = [
   'asset/github.png',
   'asset/linkedin.png',
@@ -35,12 +35,13 @@ class AnimatedSocialIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return EntryAnimation(
-      duration: delay,
+      duration: 2000,
+      delay: delay,
       child: MouseRegion(
         cursor: SystemMouseCursors.click,
         child: GestureDetector(
           onTap: onTap,
-          child: Image.asset(icon, width: 20, height: 20),
+          child: Image.asset(icon, width: 26, height: 26),
         ),
       ),
     );
@@ -52,53 +53,64 @@ class TopSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return SizedBox(
-      height: 800,
+      height: size.height,
+      width: size.width,
       child: Row(
         children: [
           // Left content
           Expanded(
             child: Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage('asset/background.jpg'),
                   fit: BoxFit.cover,
                 ),
               ),
               child: Padding(
-                padding: const EdgeInsets.only(left: 40),
+                padding: const EdgeInsets.only(left: 60, right: 20),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const EntryAnimation(
-                      transition: EntryTransition.slideUp,
+                      delay: 100,
+                      moveUp: true,
                       child: CsText(
                         text: 'HELLO',
-                        fontSize: 18,
+                        fontSize: 22,
                         fontWeight: FontWeight.w600,
-                        color: Color.fromARGB(255, 255, 68, 0),
-                        letterSpacing: 2.0,
+                        color: Color(0xFFFF4400),
+                        letterSpacing: 2.5,
                       ),
                     ),
                     const SizedBox(height: 20),
+
+                    // Main headline
                     EntryAnimation(
+                      delay: 300,
                       duration: 1000,
-                      transition: EntryTransition.fade,
+                      moveUp: true,
                       child: CsText(
                         text:
-                            "I'm Misshab\na Flutter Developer\nBased in Somewhere.",
-                        fontSize: 65,
-                        fontWeight: FontWeight.w300,
-                        fontFamily: GoogleFonts.playfair().fontFamily,
+                            "I'm Misshab\nA Flutter Developer\nBased Somewhere.",
+                        fontSize: 60,
+                        fontWeight: FontWeight.w400,
+                        fontFamily: GoogleFonts.playfairDisplay().fontFamily,
                         color: Colors.white,
                         height: 1.2,
                       ),
                     ),
-                    const SizedBox(height: 60),
+
+                    const SizedBox(height: 50),
+
+                    // Buttons
                     EntryAnimation(
-                      duration: 1200,
-                      transition: EntryTransition.slideRight,
+                      duration: 1500,
+                      delay: 500,
+                      moveUp: true,
                       child: Row(
                         children: [
                           AnimatedButton(
@@ -109,12 +121,12 @@ class TopSection extends StatelessWidget {
                           ),
                           const SizedBox(width: 20),
                           AnimatedButton(
+                            text: 'GET IN TOUCH',
+                            color: Colors.black54,
+                            colortext: Colors.white,
                             onTap: () {
                               scrollToSection(contactKey);
                             },
-                            text: 'GET IN TOUCH',
-                            color: Colors.black26,
-                            colortext: Colors.white,
                           ),
                         ],
                       ),
@@ -131,10 +143,10 @@ class TopSection extends StatelessWidget {
               color: const Color(0xFF2C2C2C),
               child: Stack(
                 children: [
-                  Positioned.fill(
-                    child: const EntryAnimation(
-                      delay: 100,
-                      transition: EntryTransition.scale,
+                  // Profile Image
+                  const Positioned.fill(
+                    child: EntryAnimation(
+                      duration: 500,
                       child: DecoratedBox(
                         decoration: BoxDecoration(
                           image: DecorationImage(
@@ -146,58 +158,57 @@ class TopSection extends StatelessWidget {
                     ),
                   ),
 
+                  // Social bar
                   Positioned(
-                    right: 40,
+                    right: 30,
                     top: 0,
                     bottom: 0,
                     child: EntryAnimation(
-                      duration: 1600,
-                      transition: EntryTransition.slideLeft,
+                      delay: 600,
+                      moveUp: true,
                       child: Container(
-                        margin: EdgeInsets.symmetric(vertical: 270),
+                        margin: const EdgeInsets.symmetric(vertical: 250),
                         width: 60,
                         decoration: BoxDecoration(
                           color: Colors.grey,
                           borderRadius: BorderRadius.circular(20),
                         ),
-                        child: Center(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: List.generate(icons.length, (index) {
-                              return Padding(
-                                padding: const EdgeInsets.fromLTRB(
-                                  15,
-                                  10,
-                                  10,
-                                  15,
-                                ),
-                                child: AnimatedSocialIcon(
-                                  icon: icons[index],
-                                  onTap: () async {
-                                    if (!await launchUrl(
-                                      Uri.parse(url[index]),
-                                    )) {
-                                      throw Exception(
-                                        'Could not launch ${url[index]}',
-                                      );
-                                    }
-                                  },
-                                ),
-                              );
-                            }),
-                          ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: List.generate(icons.length, (index) {
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 16,
+                                horizontal: 10,
+                              ),
+                              child: AnimatedSocialIcon(
+                                icon: icons[index],
+
+                                onTap: () async {
+                                  if (!await launchUrl(
+                                    Uri.parse(url[index]),
+                                    mode: LaunchMode.externalApplication,
+                                  )) {
+                                    throw Exception(
+                                      'Could not launch ${url[index]}',
+                                    );
+                                  }
+                                },
+                              ),
+                            );
+                          }),
                         ),
                       ),
                     ),
                   ),
 
+                  // CV Button
                   Positioned(
-                    bottom: 100,
-                    left: 60,
+                    bottom: 80,
+                    left: 50,
                     child: const EntryAnimation(
-                      transition: EntryTransition.rotate,
-                      duration: 1400,
+                      delay: 800,
+                      moveUp: true,
                       child: AnimatedButton(text: 'GET MY CV'),
                     ),
                   ),

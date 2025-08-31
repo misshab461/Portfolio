@@ -89,7 +89,7 @@ class Contact extends StatelessWidget {
                     // Social Icons
                     EntryAnimation(
                       duration: 1600,
-                      transition: EntryTransition.slideLeft,
+
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: List.generate(icons.length, (index) {

@@ -14,9 +14,8 @@ class NavBar extends StatelessWidget {
     final titles = ['Intro', 'About', 'Works', 'Contact'];
 
     return EntryAnimation(
-      transition: EntryTransition.slideDown,
       duration: 900,
-      offset: 80,
+
       child: Container(
         height: 80,
         color: Colors.black,
@@ -41,7 +40,6 @@ class NavBar extends StatelessWidget {
                     EntryAnimation(
                       duration: 700,
                       delay: index * 150,
-                      transition: EntryTransition.slideUp,
                       child: _NavItem(
                         text: titles[index],
                         index: index,
