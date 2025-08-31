@@ -206,10 +206,22 @@ class TopSection extends StatelessWidget {
                   Positioned(
                     bottom: 80,
                     left: 50,
-                    child: const EntryAnimation(
+                    child: EntryAnimation(
                       delay: 800,
                       moveUp: true,
-                      child: AnimatedButton(text: 'GET MY CV'),
+                      child: AnimatedButton(
+                        text: 'GET MY CV',
+                        onTap: () async {
+                          if (!await launchUrl(
+                            Uri.parse(
+                              'https://drive.google.com/file/d/1g0yz5lYLKSlB_KzvFeBhpgEM1MdtErk3/view?usp=drive_link',
+                            ),
+                            mode: LaunchMode.externalApplication,
+                          )) {
+                            throw Exception('Could not launch $url');
+                          }
+                        },
+                      ),
                     ),
                   ),
                 ],
