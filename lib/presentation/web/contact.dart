@@ -8,7 +8,6 @@ import 'package:portfolio/models/user.dart';
 import 'package:portfolio/presentation/web/top_section.dart';
 import 'package:portfolio/widgets/slade.dart';
 import 'package:portfolio/widgets/text.dart';
-
 import 'package:url_launcher/url_launcher.dart';
 
 class Contact extends StatelessWidget {
@@ -39,7 +38,6 @@ class Contact extends StatelessWidget {
     return Form(
       key: _key,
       child: Container(
-        height: 900,
         width: double.infinity,
         color: const Color(0xFFF8F5F2), // light background
 
@@ -55,7 +53,7 @@ class Contact extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
 
                     children: [
-                      SecType(text: 'Get in Touch.', number: '02'),
+                      SecType(text: 'Get in Touch.', number: '03'),
                       CsText(
                         text: "Let's Talk.",
                         fontSize: 70,

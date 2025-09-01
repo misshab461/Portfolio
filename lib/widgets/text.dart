@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:portfolio/widgets/slade.dart';
 
 class CsText extends StatelessWidget {
   final String text;
@@ -52,41 +53,48 @@ class SecType extends StatelessWidget {
   final String text;
   final String number;
   final Color color;
+  final double numS;
+  final double textS;
   const SecType({
     super.key,
     required this.text,
     required this.number,
     this.color = Colors.black,
+    this.numS = 200,
+    this.textS = 45,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      width: 400,
-      child: Center(
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            Center(
-              child: Text(
-                number,
-                style: TextStyle(
-                  fontSize: 200,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: GoogleFonts.dmSerifDisplay().fontFamily,
-                  color: Colors.grey.withAlpha(130),
+    return EntryAnimation(
+      moveUp: true,
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        width: 400,
+        child: Center(
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              Center(
+                child: Text(
+                  number,
+                  style: TextStyle(
+                    fontSize: numS,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: GoogleFonts.dmSerifDisplay().fontFamily,
+                    color: Colors.grey.withAlpha(130),
+                  ),
                 ),
               ),
-            ),
-            CsText(
-              text: text,
-              fontSize: 50,
-              color: color,
-              fontFamily: GoogleFonts.merriweather().fontFamily,
-              fontWeight: FontWeight.bold,
-            ),
-          ],
+              CsText(
+                text: text,
+                fontSize: 50,
+                color: color,
+                fontFamily: GoogleFonts.merriweather().fontFamily,
+                fontWeight: FontWeight.bold,
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -98,6 +106,8 @@ class AnimatedButton extends StatefulWidget {
   final void Function()? onTap;
   final Color color;
   final Color colortext;
+  final double hp;
+  final double vp;
 
   const AnimatedButton({
     super.key,
@@ -105,6 +115,8 @@ class AnimatedButton extends StatefulWidget {
     this.onTap,
     this.color = Colors.grey,
     this.colortext = Colors.black,
+    this.hp = 40,
+    this.vp = 17,
   });
 
   @override
@@ -124,7 +136,10 @@ class _AnimatedButtonState extends State<AnimatedButton> {
         onTap: widget.onTap,
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 400),
-          padding: const EdgeInsets.symmetric(horizontal: 45, vertical: 17),
+          padding: EdgeInsets.symmetric(
+            horizontal: widget.hp,
+            vertical: widget.vp,
+          ),
           decoration: BoxDecoration(
             color: _isHovered ? Colors.red.shade400 : widget.color,
             border: Border.all(color: Colors.white, width: 2),
@@ -132,7 +147,7 @@ class _AnimatedButtonState extends State<AnimatedButton> {
           child: Text(
             widget.text,
             style: TextStyle(
-              fontSize: 14,
+              fontSize: 13,
               fontWeight: FontWeight.w600,
               color: _isHovered ? Colors.black : widget.colortext,
             ),

@@ -55,7 +55,7 @@ class MyPortfolioWeb extends StatelessWidget {
         /// 🔹 Responsive handling
         home: LayoutBuilder(
           builder: (context, constraints) {
-            if (constraints.maxWidth < 600) {
+            if (constraints.maxWidth < 1000) {
               // Mobile Layout
               return MainScreenMobile();
             } else {

@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio/widgets/slade.dart';
@@ -15,47 +17,52 @@ class NavBar extends StatelessWidget {
 
     return EntryAnimation(
       duration: 900,
+      child: ClipRRect(
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+          child: Container(
+            height: 70,
+            color: Colors.black.withOpacity(0.9),
+            padding: const EdgeInsets.symmetric(horizontal: 80),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                // Left title
+                CsText(
+                  text: 'Portfolio.',
+                  fontSize: 30,
+                  fontFamily: GoogleFonts.expletusSans().fontFamily,
+                  fontWeight: FontWeight.w300,
+                  color: Colors.white,
+                ),
 
-      child: Container(
-        height: 80,
-        color: Colors.black,
-        padding: const EdgeInsets.symmetric(horizontal: 80),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            // Left title
-            CsText(
-              text: 'Portfolio',
-              fontSize: 32,
-              fontFamily: GoogleFonts.expletusSans().fontFamily,
-              fontWeight: FontWeight.w300,
-              color: Colors.white,
+                // Right nav items
+                Row(
+                  children: List.generate(titles.length, (index) {
+                    return Row(
+                      children: [
+                        EntryAnimation(
+                          duration: 700,
+                          delay: index * 150,
+                          child: _NavItem(
+                            text: titles[index],
+                            index: index,
+                            selectedIndex: selectedIndex,
+                            onTap: () {
+                              selectedIndex.value = index;
+                              onItemSelected?.call(index);
+                            },
+                          ),
+                        ),
+                        if (index != titles.length - 1)
+                          const SizedBox(width: 40),
+                      ],
+                    );
+                  }),
+                ),
+              ],
             ),
-
-            // Right nav items
-            Row(
-              children: List.generate(titles.length, (index) {
-                return Row(
-                  children: [
-                    EntryAnimation(
-                      duration: 700,
-                      delay: index * 150,
-                      child: _NavItem(
-                        text: titles[index],
-                        index: index,
-                        selectedIndex: selectedIndex,
-                        onTap: () {
-                          selectedIndex.value = index;
-                          onItemSelected?.call(index);
-                        },
-                      ),
-                    ),
-                    if (index != titles.length - 1) const SizedBox(width: 40),
-                  ],
-                );
-              }),
-            ),
-          ],
+          ),
         ),
       ),
     );
@@ -103,7 +110,7 @@ class _NavItem extends StatelessWidget {
                   child: Text(
                     text,
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 14,
                       fontWeight: isActive ? FontWeight.w600 : FontWeight.w400,
                       letterSpacing: 1.0,
                       color: color,

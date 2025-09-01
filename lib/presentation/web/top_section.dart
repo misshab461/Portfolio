@@ -26,12 +26,14 @@ class AnimatedSocialIcon extends StatelessWidget {
   final String icon;
   final int delay;
   final void Function()? onTap;
+  final double hw;
 
   const AnimatedSocialIcon({
     super.key,
     required this.icon,
     this.delay = 0,
     this.onTap,
+    this.hw = 27,
   });
 
   @override
@@ -44,15 +46,15 @@ class AnimatedSocialIcon extends StatelessWidget {
         child: GestureDetector(
           onTap: onTap,
           child: Container(
-            height: 35,
-            width: 35,
-
+            height: hw,
+            width: hw,
             margin: const EdgeInsets.only(bottom: 10, right: 20),
+            padding: const EdgeInsets.all(1),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(10),
-              image: DecorationImage(image: AssetImage(icon)),
             ),
+            child: Image.asset(icon, fit: BoxFit.contain),
           ),
         ),
       ),
