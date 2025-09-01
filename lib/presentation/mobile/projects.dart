@@ -26,7 +26,7 @@ class ProjectsMobile extends StatelessWidget {
       color: Colors.grey.shade800,
       width: double.infinity,
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(100, 10, 100, 100),
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
